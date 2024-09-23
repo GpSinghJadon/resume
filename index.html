@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gajender Singh - Resume</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -15,14 +18,16 @@
             padding: 20px;
             background-color: #f6f9fc;
         }
+
         h1 {
             font-family: 'Pacifico', cursive;
             color: #6c5ce7;
             text-align: center;
             font-size: 3em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         h2 {
             color: #00b894;
             cursor: pointer;
@@ -31,40 +36,49 @@
             border-radius: 5px;
             transition: all 0.3s ease;
         }
+
         h2:hover {
             background-color: #00b894;
             color: white;
             transform: translateX(10px);
         }
+
         .section {
             margin-bottom: 20px;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
+
         .section:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
+
         .job {
             margin-bottom: 15px;
             border-left: 3px solid #6c5ce7;
             padding-left: 15px;
         }
+
         .job-title {
             font-weight: 600;
             color: #e17055;
         }
+
         .company {
             font-style: italic;
             color: #0984e3;
         }
+
         .date {
             color: #636e72;
         }
-        #coverLetterBtn {
+
+        .download-btn,
+        .cover-letter-btn {
             background-color: #6c5ce7;
             color: white;
             padding: 10px 20px;
@@ -74,10 +88,13 @@
             border-radius: 25px;
             transition: all 0.3s ease;
         }
-        #coverLetterBtn:hover {
+
+        .download-btn:hover,
+        .cover-letter-btn:hover {
             background-color: #5641e5;
             transform: scale(1.05);
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -87,8 +104,9 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0, 0, 0, 0.4);
         }
+
         .modal-content {
             background-color: #fefefe;
             margin: 15% auto;
@@ -97,25 +115,23 @@
             width: 80%;
             max-width: 600px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .close {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
+
         .close:hover,
         .close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
         }
-        @media print {
-            #coverLetterBtn {
-                display: none;
-            }
-        }
+
         .skill-tag {
             display: inline-block;
             background-color: #74b9ff;
@@ -125,31 +141,75 @@
             margin: 2px;
             font-size: 0.9em;
         }
+
+        .skill-tag.highlight {
+            background-color: #ff7675;
+            font-weight: bold;
+        }
+
+        .cover-letter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cover-letter-form input,
+        .cover-letter-form textarea {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        @media print {
+
+            .download-btn,
+            .cover-letter-btn {
+                display: none;
+            }
+        }
+
+        .duration {
+            font-weight: bold;
+            color: #0984e3;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
+
 <body>
     <h1>Gajender Singh</h1>
-    <p style="text-align: center; color: #636e72;">New Delhi | +919219198004 | gajenderpalsingh@gmail.com | <a href="https://www.linkedin.com/in/gajender-singh" target="_blank" style="color: #0984e3;">LinkedIn Profile</a></p>
+    <p style="text-align: center; color: #636e72;">New Delhi | +919219198004 | gajenderpalsingh@gmail.com | <a
+            href="https://www.linkedin.com/in/gajender-singh" target="_blank" style="color: #0984e3;">LinkedIn
+            Profile</a></p>
+
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button class="download-btn" onclick="downloadResume()">Download Formal Resume (PDF)</button>
+        <button class="cover-letter-btn" onclick="showCoverLetterForm()">Generate Cover Letter</button>
+    </div>
 
     <div class="section">
         <h2>👨‍💼 Professional Summary</h2>
         <div>
-            <p>Tech wizard with 10 years of spellbinding experience in AIOps, Telecommunication (RAN), Networking (SDN), and Cloud Applications. My superpower? Crafting amazing features, conjuring microservices architectures, and full-stack sorcery!</p>
-            <button id="coverLetterBtn">📝 Peek at My Cover Letter</button>
-        </div>
-    </div>
-
-    <div id="coverLetterModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Cover Letter</h2>
-            <p>Dear Hiring Wizard,</p>
-            <p>I'm thrilled to throw my hat in the ring for the [Position] role at [Company Name]. With over a decade of tech adventures under my belt, I'm ready to bring some magic to your team!</p>
-            <p>From AIOps to Cloud Applications, I've been on quite the journey. I've led feature quests, tamed microservices dragons, and built full-stack castles. Each challenge has been a new level to conquer, and I'm always eager for the next adventure.</p>
-            <p>Right now, I'm wielding my Technical Specialist wand at LTIMindtree, where I'm the lead conjurer for Mosaic AIOps. It's been a blast transforming Enterprise IT through the power of AI-led operations.</p>
-            <p>I'm particularly excited about [Company Name] because [specific reason or company value]. I believe my tech skills and passion for innovation would make me a fantastic addition to your guild of experts.</p>
-            <p>Thanks for considering me for this epic quest. I'm looking forward to discussing how we can create some tech magic together!</p>
-            <p>Ready for adventure,<br>Gajender Singh</p>
+            <p>Innovative technical specialist with 10 years of experience in AIOps, Telecommunication (RAN), Networking
+                (SDN), and Cloud Applications. Demonstrated expertise in feature detailing, microservices architectures,
+                and full-stack development, with a recent focus on cutting-edge Generative AI technologies.</p>
+            <p>Throughout my career, I have consistently leveraged my technical acumen to drive transformative solutions
+                across various domains. At LTIMindtree, I spearhead feature development for Mosaic AIOps,
+                revolutionizing Enterprise IT through AI-led operations. This role has honed my ability to manage
+                complex feature release cycles and enhance asset monitoring through automated situation detection and
+                remediation.</p>
+            <p>My experience spans from developing robust cloud applications to optimizing network infrastructure,
+                always with an eye towards innovation and efficiency. I have a proven track record of successfully
+                implementing microservices architectures, crafting intuitive REST APIs, and utilizing a wide array of
+                technologies including Python, Docker, Kubernetes, and AWS serverless services.</p>
+            <p>Recently, I have developed a keen interest and proficiency in Generative AI, working extensively with
+                LangChain and GenAI Agents. This emerging field presents exciting opportunities to push the boundaries
+                of what's possible in tech, and I'm eager to apply these cutting-edge skills to solve complex business
+                challenges.</p>
+            <p>My approach combines technical expertise with strong leadership and communication skills, enabling me to
+                effectively collaborate with cross-functional teams and stakeholders. I thrive in dynamic environments
+                where I can continually learn, innovate, and contribute to groundbreaking projects that shape the future
+                of technology.</p>
         </div>
     </div>
 
@@ -158,6 +218,9 @@
         <div>
             <h3>Primary Skills</h3>
             <p>
+                <span class="skill-tag highlight">GenAI</span>
+                <span class="skill-tag highlight">LangChain</span>
+                <span class="skill-tag highlight">GenAI Agents</span>
                 <span class="skill-tag">Feature Detailing</span>
                 <span class="skill-tag">Microservices</span>
                 <span class="skill-tag">REST API</span>
@@ -188,29 +251,105 @@
     </div>
 
     <div class="section">
-        <h2>💼 Professional Adventures</h2>
+        <h2>💼 Professional Experience</h2>
         <div>
+            <!-- LTIMindtree -->
             <div class="job">
-                <p class="job-title">Technical Specialist</p>
-                <p class="company">LTIMindtree | Pune, Maharashtra</p>
-                <p class="date">August 2021 - Present</p>
+                <h3>LTIMindtree | Pune, Maharashtra</h3>
+                <p class="duration">Total Duration: 3 years (August 2021 - Present)</p>
+
+                <h4>Technical Specialist</h4>
+                <p>January 2023 - Present</p>
                 <ul>
-                    <li>Leading the charge in Mosaic AIOps feature development, transforming Enterprise IT with AI magic</li>
-                    <li>Orchestrating feature release cycles and enhancing asset monitoring with a wave of my wand</li>
+                    <li>Led a team of 9 engineers in developing innovative AIOps solutions, driving Enterprise IT
+                        transformation through AI-led operations</li>
+                    <li>Pioneered the integration of GenAI, LangChain, and LangChain Agents to create automated
+                        solutions in the AIOps domain</li>
+                    <li>Mentored team members, conducted code reviews, and established best practices for emerging AI
+                        technologies</li>
+                    <li>Spearheaded research on industry standards to ensure cutting-edge and compliant solutions</li>
+                    <li>Developed prototypes to demonstrate proof-of-concept for novel AI-driven workflows</li>
+                </ul>
+
+                <h4>Technical Specialist</h4>
+                <p>August 2021 - December 2022</p>
+                <ul>
+                    <li>Spearhead feature development for Mosaic AIOps, driving Enterprise IT transformation through
+                        AI-led operations</li>
+                    <li>Orchestrate complete feature release cycles, enhancing efficiency and reliability</li>
+                    <li>Implement advanced asset monitoring and automated situation detection & remediation systems</li>
+                    <li>Collaborate with cross-functional teams to align technical solutions with business objectives
+                    </li>
                 </ul>
             </div>
+
+            <!-- HCL Engineering and R&D Services -->
             <div class="job">
-                <p class="job-title">Technical Lead</p>
-                <p class="company">HCL Engineering and R&D Services | Bengaluru, Karnataka</p>
-                <p class="date">August 2019 - June 2021</p>
+                <h3>HCL Engineering and R&D Services | Bengaluru, Karnataka</h3>
+                <p class="duration">Total Duration: 1 year 11 months (August 2019 - June 2021)</p>
+
+                <h4>Technical Lead</h4>
+                <p>August 2019 - June 2021</p>
                 <ul>
-                    <li>Championed feature ownership for HCL SON (C-SON), juggling multiple vendors and generations (3G, 4G, 5G)</li>
-                    <li>Conducted system validation quests and wowed stakeholders with feature demonstrations</li>
-                    <li>Crafted applications for Dynamic Parameters Audit, Spectrum Sharing, and PCI optimization</li>
-                    <li>Wielded Python, Docker, MongoDB, Microservices, and Redis</li>
+                    <li>Led feature ownership for HCL SON (C-SON), supporting multiple vendors and generations (3G, 4G,
+                        5G)</li>
+                    <li>Conducted comprehensive end-to-end system validation and requirement validation</li>
+                    <li>Delivered compelling feature demonstrations to stakeholders, ensuring alignment with project
+                        goals</li>
+                    <li>Developed applications for Dynamic Parameters Audit and Enforcement, Dynamic Spectrum Sharing,
+                        and Dynamic PCI optimization</li>
+                    <li>Utilized Python, Docker, MongoDB, Microservices, and Redis to create robust, scalable solutions
+                    </li>
                 </ul>
             </div>
-            <!-- ... (other job entries) ... -->
+
+            <!-- Brillio -->
+            <div class="job">
+                <h3>Brillio | Pune, Maharashtra</h3>
+                <p class="duration">Total Duration: 9 months (December 2018 - August 2019)</p>
+
+                <h4>Senior Engineer</h4>
+                <p>December 2018 - August 2019</p>
+                <ul>
+                    <li>Engineered solutions for Blueplanet MDSO as a key member of the Resource adapter team</li>
+                    <li>Enabled MDSO to support multiple vendor-based network devices, enhancing system flexibility</li>
+                    <li>Leveraged Python, Docker, Microservices, Debugger (PDB), Kafka, Vim, GIT, Jira, and Postman to
+                        develop and maintain high-quality code</li>
+                </ul>
+            </div>
+
+            <!-- MyOperator -->
+            <div class="job">
+                <h3>MyOperator | New Delhi</h3>
+                <p class="duration">Total Duration: 3 years 6 months (July 2015 - December 2018)</p>
+
+                <h4>Senior Software Developer</h4>
+                <p>July 2015 - December 2018</p>
+                <ul>
+                    <li>Designed, developed, and maintained feature modules and services as the primary feature owner
+                    </li>
+                    <li>Optimized system performance and scalability to meet growing business demands</li>
+                    <li>Implemented solutions using Python, AWS, Distributed systems, PHP, MySQL, Docker, Elastic
+                        Search, and Parallel processing</li>
+                </ul>
+            </div>
+
+            <!-- Bellurbis Technologies -->
+            <div class="job">
+                <h3>Bellurbis Technologies | Gurgaon</h3>
+                <p class="duration">Total Duration: 1 year 2 months (June 2014 - July 2015)</p>
+
+                <h4>Web Application Developer</h4>
+                <p>June 2014 - July 2015</p>
+                <ul>
+                    <li>Developed a robust content management system to provide dynamic data to Android and iOS mobile
+                        applications</li>
+                    <li>Collaborated with mobile development teams to ensure seamless integration of backend services
+                    </li>
+                    <li>Utilized PHP, REST API, JSON, HTML, and CSS to create responsive and user-friendly interfaces
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -218,7 +357,7 @@
         <h2>🎓 Education</h2>
         <div>
             <p><strong>Bachelor of Technology in Computer Science</strong><br>
-            Uttar Pradesh Technical University, Lucknow | 2010 - 2014</p>
+                Uttar Pradesh Technical University, Lucknow | 2010 - 2014</p>
         </div>
     </div>
 
@@ -232,33 +371,99 @@
         </div>
     </div>
 
+    <div id="coverLetterModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Generate Cover Letter</h2>
+            <div class="cover-letter-form">
+                <input type="text" id="companyName" placeholder="Company Name">
+                <input type="text" id="position" placeholder="Position">
+                <textarea id="specificReason" placeholder="Specific reason for interest in this company"></textarea>
+                <button onclick="generateCoverLetter()">Generate</button>
+            </div>
+            <div id="coverLetterContent" style="display: none;"></div>
+        </div>
+    </div>
+
     <script>
-        // Cover Letter Modal
         var modal = document.getElementById("coverLetterModal");
-        var btn = document.getElementById("coverLetterBtn");
         var span = document.getElementsByClassName("close")[0];
 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = "none";
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
 
-        // Accordion functionality
-        document.querySelectorAll('.section h2').forEach(header => {
-            header.addEventListener('click', () => {
-                const content = header.nextElementSibling;
-                content.style.display = content.style.display === 'none' ? 'block' : 'none';
-            });
-        });
+        function showCoverLetterForm() {
+            document.getElementById('coverLetterModal').style.display = 'block';
+            document.getElementById('coverLetterContent').style.display = 'none';
+            document.querySelector('.cover-letter-form').style.display = 'flex';
+        }
+
+        function generateCoverLetter() {
+            const companyName = document.getElementById('companyName').value;
+            const position = document.getElementById('position').value;
+            const specificReason = document.getElementById('specificReason').value;
+
+            const coverLetter = `
+                <h2>Cover Letter</h2>
+                <p>Dear Hiring Manager,</p>
+                <p>I am writing to express my strong interest in the ${position} role at ${companyName}. With over 10 years of experience in AIOps, Telecommunication (RAN), Networking (SDN), and Cloud Applications, I am confident in my ability to contribute significantly to your team.</p>
+                <p>Throughout my career, I have demonstrated expertise in feature detailing, microservices architecture, and full-stack development. My recent focus on Generative AI technologies, including work with LangChain and GenAI Agents, allows me to bring cutting-edge skills to this role.</p>
+                <p>In my current role as a Technical Specialist at LTIMindtree, I lead feature development for Mosaic AIOps, enabling Enterprise IT transformation through AI-led IT Operations. This experience has honed my skills in managing complete feature release cycles and enhancing asset monitoring and automated situation detection & remediation.</p>
+                <p>I am particularly drawn to ${companyName} because ${specificReason}. I believe my technical skills, coupled with my passion for innovation, make me an ideal candidate for this position.</p>
+                <p>Thank you for considering my application. I look forward to the opportunity to discuss how my skills and experience can contribute to the success of your team.</p>
+                <p>Sincerely,<br>Gajender Singh</p>
+            `;
+
+            document.getElementById('coverLetterContent').innerHTML = coverLetter;
+            document.getElementById('coverLetterContent').style.display = 'block';
+            document.querySelector('.cover-letter-form').style.display = 'none';
+        }
+
+        function downloadResume() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(20);
+            doc.text("Gajender Singh", 105, 15, null, null, "center");
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text("New Delhi | +919219198004 | gajenderpalsingh@gmail.com", 105, 22, null, null, "center");
+
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+            doc.text("Professional Summary", 20, 30);
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text("Technical specialist with 10 years of experience in AIOps, Telecommunication (RAN),", 20, 38);
+            doc.text("Networking (SDN), and Cloud Applications. Expertise in feature detailing, microservices", 20, 44);
+            doc.text("architecture, and full-stack development, with recent focus on Generative AI technologies.", 20, 50);
+
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+            doc.text("Skills", 20, 60);
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text("Primary: GenAI, LangChain, GenAI Agents, Feature Detailing, Microservices, REST API, Python,", 20, 68);
+            doc.text("Flask, Fast API, PHP, Docker, Kubernetes, MongoDB, MySQL, AWS serverless services", 20, 74);
+            doc.text("Secondary: Scrum, Git, Jira, Linux, Automation", 20, 80);
+            doc.text("Languages: Hindi (Native), English (Professional Working)", 20, 86);
+
+            // ... Add more sections (Professional Experience, Education, etc.) ...
+
+            doc.save("Gajender_Singh_Resume.pdf");
+        }
     </script>
 </body>
+
 </html>
